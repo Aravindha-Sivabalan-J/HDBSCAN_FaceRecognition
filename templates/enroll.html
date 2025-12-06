@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h1><span class="highlight">Enroll</span> Person</h1>
+    <p style="margin-bottom: 2rem; color: var(--text-secondary);">Upload a clear facial image to register an identity.
+    </p>
+
+    {% if success %}
+    <div
+        style="background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+        {{ success }}
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div
+        style="background: rgba(239, 68, 68, 0.2); color: var(--error); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.person_id.id_for_label }}">Person Name / ID</label>
+            {{ form.person_id }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}">Reference Image</label>
+            {{ form.image }}
+        </div>
+
+        <button type="submit" class="btn">Enroll Identity</button>
+    </form>
+</div>
+{% endblock %}

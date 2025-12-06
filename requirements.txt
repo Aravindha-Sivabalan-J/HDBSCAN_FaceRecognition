@@ -1,0 +1,13 @@
+django==5.2.6
+chromadb
+ultralytics
+onnxruntime-gpu
+hdbscan
+opencv-python-headless
+numpy
+matplotlib
+scikit-learn
+torch
+# GPU acceleration (optional but recommended)
+# cuml-cu12  # Uncomment for GPU HDBSCAN - requires RAPIDS
+# cudf-cu12  # Uncomment for GPU HDBSCAN - requires RAPIDS

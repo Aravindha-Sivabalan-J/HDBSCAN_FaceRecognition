@@ -1,0 +1,41 @@
+# --- Python & Django Core ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+*.pyc
+
+# --- Virtual Environment ---
+venv/
+env/
+.venv/
+
+# --- Environment Variables (Secrets) ---
+.env
+.env.local
+
+# --- Databases ---
+# SQLite3 (Standard Django DB)
+db.sqlite3
+db.sqlite3-journal
+
+# --- ChromaDB (Vector DB Persistence) ---
+# Chroma creates a local folder to store embeddings. 
+# If you named your persistence path something else, add it here.
+chroma_db/
+chroma_data/
+
+# --- Project Specific Large Files ---
+# Ignored to prevent GitHub file size errors
+analysis_pipeline/models/
+
+# --- Media Files ---
+# Don't track uploaded user videos or images
+media/
+static_root/
+
+# --- OS & IDE Junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
