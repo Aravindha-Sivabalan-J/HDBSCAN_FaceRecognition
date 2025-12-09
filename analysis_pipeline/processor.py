@@ -104,7 +104,7 @@ class VideoAnalyzer:
     def _process_frame_batch(self, frame_batch, detections, start_frame_idx):
         """Process batch of frames for GPU efficiency."""
         device = 'cuda' if hasattr(self.yolo.model, 'device') and 'cuda' in str(self.yolo.model.device) else 'cpu'
-        results = self.yolo(frame_batch, verbose=False, device=device)
+        results = self.yolo(frame_batch, verbose=False, device=device, max_det=20, conf=0.5, iou=0.7, stream=True, agnostic_nms=True)
         
         for frame_idx, (frame, result) in enumerate(zip(frame_batch, results)):
             actual_frame_idx = start_frame_idx + frame_idx
@@ -189,7 +189,7 @@ class VideoAnalyzer:
         logger.info(f"Running face detection on enrollment image...")
         # Ensure YOLO uses GPU for enrollment too
         device = 'cuda' if hasattr(self.yolo.model, 'device') and 'cuda' in str(self.yolo.model.device) else 'cpu'
-        results = self.yolo(img, device=device, verbose=False)
+        results = self.yolo(img, device=device, verbose=False, max_det=5, conf=0.5, stream=True, agnostic_nms=True)
         
         # Take the detection with highest confidence or largest area
         best_face = None
@@ -272,7 +272,7 @@ class VideoAnalyzer:
         update_progress(0, f"Starting processing for {total_frames} frames...")
         
         # 1. Detection & Embedding (GPU Batch Processing)
-        batch_size = 16  # Process multiple frames at once
+        batch_size = 1  # Process one frame at a time to prevent NMS timeout
         frame_batch = []
         
         while True:
